@@ -1,5 +1,5 @@
 {
-  "name": "getting-started",
+  "name": "audit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@babel/parser": "^7.24.4",
-    "@babel/traverse": "^7.24.1"
+    "@babel/traverse": "^7.24.1",
+    "glob": "^10.3.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@types/babel__traverse": "^7.20.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "@types/glob": "^8.1.0"
   }
 }
