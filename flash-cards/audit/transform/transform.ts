@@ -5,6 +5,8 @@ import * as types from "@babel/types";
 import * as fs from "fs";
 import * as glob from "glob";
 import * as prettier from "prettier";
+import * as path from "path";
+
 let flag = false;
 
 const files = glob.sync("../../../flash-cards/src/components/**/*.js");
@@ -16,6 +18,10 @@ files.forEach(async (file) => {
     sourceType: "module",
     plugins: ["jsx"],
   });
+
+  // Keep track if any button elements were converted
+  // to the Button component.
+  let fileContainsButton = false;
 
   traverse(ast, {
     JSXElement({ node }) {
@@ -38,7 +44,7 @@ files.forEach(async (file) => {
         );
 
         if (!hasButtonClassName) return;
-
+        fileContainsButton = true;
         const newProps: types.JSXAttribute[] = [];
         openingElement.attributes.forEach((attribute) => {
           if (
@@ -134,6 +140,35 @@ files.forEach(async (file) => {
       }
     },
   });
+
+  // When the current file contains a `Button` component,
+  // add the necessary import. It only needs to be added
+  // once per file, so it's outside the traverse to avoid
+  // adding it multiple times.
+  if (fileContainsButton) {
+    // Construct a relative path from the current file
+    // to the `Button` component. Alternatively, this
+    // could use a hardcoded absolute path if supported.
+    const relativePathToButtonComponent = path.relative(
+      // Due to how the relative helper works, the `from`
+      // needs to be passed as a directory.
+      // See: https://stackoverflow.com/a/31024574/2690790
+      path.dirname(file),
+      "../flash-cards/src/components/Button/Button.js"
+    );
+
+    // Construct a new import statement.
+    const buttonComponentImport = types.importDeclaration(
+      [
+        types.importSpecifier(
+          types.identifier("Button"),
+          types.identifier("Button")
+        ),
+      ],
+      types.stringLiteral(relativePathToButtonComponent)
+    );
+    ast.program.body.unshift(buttonComponentImport);
+  }
 
   const { code } = generate(ast);
   const formattedCode = await prettier.format(code, { filepath: file });

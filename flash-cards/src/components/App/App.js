@@ -5,10 +5,8 @@ import { LandingPage } from "../LandingPage/LandingPage";
 import { LogIn } from "../LogIn/LogIn";
 import { SignUp } from "../SignUp/SignUp";
 import { Nav } from "../Nav/Nav";
-
 export const App = () => {
   const [currentPage, setCurrentPage] = React.useState("landingPage");
-
   const renderPage = () => {
     switch (currentPage) {
       case "logIn":
@@ -22,7 +20,6 @@ export const App = () => {
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
   };
-
   return (
     <Content>
       <Nav currentPage={currentPage} setCurrentPage={setCurrentPage} />
