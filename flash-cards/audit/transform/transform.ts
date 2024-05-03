@@ -5,6 +5,7 @@ import * as types from "@babel/types";
 import * as fs from "fs";
 import * as glob from "glob";
 import * as prettier from "prettier";
+let flag = false;
 
 const files = glob.sync("../../../flash-cards/src/components/**/*.js");
 
@@ -88,12 +89,19 @@ files.forEach(async (file) => {
                     // exports "builders" to construct each type of
                     // node in an AST and ensures it's correct.
                     if (variant) {
+                      if (!flag) {
+                        console.log("attribute", attribute);
+                      }
                       newProps.push(
                         types.jsxAttribute(
                           types.jsxIdentifier("variant"),
                           types.stringLiteral(variant)
                         )
                       );
+                      if (!flag) {
+                        console.log("newProps", newProps);
+                      }
+                      flag = true;
                     }
 
                     // The `block` prop only needs to be set when the
@@ -117,8 +125,9 @@ files.forEach(async (file) => {
             }
           }
         });
-
+        // console.log("newProps", newProps);
         openingElement.name.name = "Button";
+        openingElement.attributes = newProps;
         if (closingElement?.name.type === "JSXIdentifier") {
           closingElement.name.name = "Button";
         }

@@ -2,16 +2,13 @@ import React from "react";
 import { Equation } from "../Equation/Equation";
 import { Select } from "../Select/Select";
 import { generateEquation } from "../../helpers";
-
 const NUMBER_OF_EQUATIONS_OPTIONS = [3, 5, 10, 25, 50, 100, "∞"];
-
 export const Dashboard = () => {
   const [equation, setEquation] = React.useState(null);
   const [currentAnswer, setCurrentAnswer] = React.useState("");
   const [answerStatus, setAnswerStatus] = React.useState("waiting");
   const [totalCorrect, setTotalCorrect] = React.useState(0);
   const [requiredCorrect, setRequiredCorrect] = React.useState(10);
-
   const handleStart = () => {
     setEquation(generateEquation());
   };
@@ -55,7 +52,6 @@ export const Dashboard = () => {
     setTotalCorrect(0);
     setEquation(null);
   };
-
   if (answerStatus === "completed") {
     return (
       <div className="dashboard__complete-container">

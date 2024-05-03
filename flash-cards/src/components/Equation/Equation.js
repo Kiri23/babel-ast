@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-
 export const Equation = ({
   left,
   operator,
@@ -19,7 +18,6 @@ export const Equation = ({
       ref.current.focus();
     }
   }, [answerStatus]);
-
   return (
     <div className="equation__container">
       <div className="equation__left-hand-side">
