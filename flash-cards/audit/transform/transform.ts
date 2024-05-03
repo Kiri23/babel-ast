@@ -3,6 +3,7 @@ import generate from "@babel/generator";
 import traverse from "@babel/traverse";
 import * as fs from "fs";
 import * as glob from "glob";
+import * as prettier from "prettier";
 
 const files = glob.sync("../../../flash-cards/src/components/**/*.js");
 
@@ -45,6 +46,7 @@ files.forEach((file) => {
   });
 
   const { code } = generate(ast);
+  const formattedCode = prettier.format(code, { filepath: file });
 
   fs.writeFileSync(file, code);
 });
