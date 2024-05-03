@@ -34,7 +34,7 @@ describe("helpers", () => {
 
     it("should throw when passed an unhandled operator", () => {
       expect(() => calculateEquation(1, "*", 1)).toThrow(
-        "Unhandled operator: *"
+        "Unhandled operator: *",
       );
     });
   });
@@ -45,11 +45,11 @@ describe("helpers", () => {
         expect.objectContaining({
           left: expect.any(Number),
           operator: expect.stringMatching(
-            new RegExp(OPERATORS.map((op) => `\\${op}`).join("|"), "gi")
+            new RegExp(OPERATORS.map((op) => `\\${op}`).join("|"), "gi"),
           ),
           right: expect.any(Number),
           answer: expect.any(Number),
-        })
+        }),
       );
     });
   });

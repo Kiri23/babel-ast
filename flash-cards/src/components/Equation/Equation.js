@@ -31,7 +31,7 @@ export const Equation = ({
         onChange={(event) => onAnswerChange(event.currentTarget.value)}
         className={classNames(
           "equation__answer",
-          `equation__answer--${answerStatus}`
+          `equation__answer--${answerStatus}`,
         )}
         aria-label={`what is the answer for ${left} ${operator} ${right}?`}
         placeholder="?"

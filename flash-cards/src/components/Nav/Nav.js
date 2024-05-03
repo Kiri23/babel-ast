@@ -5,7 +5,7 @@ export const Nav = ({ currentPage, setCurrentPage }) => (
         className="nav__logo-button"
         onClick={() =>
           setCurrentPage((currentPage) =>
-            currentPage === "dashboard" ? "dashboard" : "landingPage"
+            currentPage === "dashboard" ? "dashboard" : "landingPage",
           )
         }
       >
